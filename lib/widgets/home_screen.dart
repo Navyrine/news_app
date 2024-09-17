@@ -44,6 +44,31 @@ class _HomeScreenState extends State<HomeScreen>
     });
   }
 
+  void _removeNews(News news)
+  {
+    final newsIndexItem = _registeredNews.indexOf(news);
+    
+    setState(() {
+      _registeredNews.remove(news);
+    });
+
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(seconds: 3),
+        content: const Text("News Item Deleted"),
+        action: SnackBarAction(
+          label: "Undo", 
+          onPressed: () {
+            setState(() {
+              _registeredNews.insert(newsIndexItem, news);
+            });
+          }
+        ),
+      )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen>
       ),
       body: Column(
         children: [
-          Expanded(child: NewsList(newsList: _registeredNews))
+          Expanded(child: NewsList(newsList: _registeredNews, onRemoveNewsItem: _removeNews))
         ],
       ),
     );

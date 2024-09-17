@@ -6,16 +6,24 @@ class NewsList extends StatelessWidget
 {
   const NewsList({
     super.key,
-    required this.newsList
+    required this.newsList,
+    required this.onRemoveNewsItem
   });
 
   final List<News> newsList;
+  final void Function(News news) onRemoveNewsItem;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: newsList.length,
-      itemBuilder: (ctx, index) => NewsItem(newsItem: newsList[index])
+      itemBuilder: (ctx, index) => Dismissible(
+        onDismissed: (direction) {
+          onRemoveNewsItem(newsList[index]);
+        },
+        key: ValueKey(newsList[index]), 
+        child: NewsItem(newsItem: newsList[index])
+      )
     );
   }
 }
