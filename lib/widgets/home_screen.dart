@@ -30,6 +30,9 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("News App"),
+      ),
       body: Column(
         children: [
           Expanded(child: NewsList(newsList: _registeredNews))
