@@ -18,6 +18,9 @@ class NewsList extends StatelessWidget
     return ListView.builder(
       itemCount: newsList.length,
       itemBuilder: (ctx, index) => Dismissible(
+        background: Container(
+          color: const Color.fromARGB(230, 232, 92, 13),
+        ),
         onDismissed: (direction) {
           onRemoveNewsItem(newsList[index]);
         },
