@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/models/news.dart';
+import 'package:news_app/widgets/news_form.dart';
 import 'package:news_app/widgets/news_list/news_list.dart';
 
 class HomeScreen extends StatefulWidget
@@ -27,11 +28,26 @@ class _HomeScreenState extends State<HomeScreen>
     )
   ];
 
+  void _openFormNews()
+  {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context, 
+      builder: (ctx) => const NewsForm()
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("News App"),
+        actions: [
+          IconButton(
+            onPressed: _openFormNews, 
+            icon: const Icon(Icons.add)
+          )
+        ],
       ),
       body: Column(
         children: [
