@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/models/news.dart';
 
 class NewsForm extends StatefulWidget
 {
   const NewsForm({
-    super.key
+    super.key,
+    required this.onAddNews
   });
+
+  final void Function(News news) onAddNews;
 
   @override
   State<StatefulWidget> createState() {
@@ -16,6 +20,43 @@ class _NewsFormState extends State<NewsForm>
 {
   final _titleController = TextEditingController();
   final _bodyController = TextEditingController();
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _bodyController.dispose();
+    super.dispose();
+  }
+
+  void _submitForm()
+  {
+    if (_titleController.text.isEmpty || _bodyController.text.isEmpty) 
+    {
+      showDialog(
+        context: context, 
+        builder: (ctx) => AlertDialog(
+          title: const Text("Invalid Input"),
+          content: const Text("Please make sure a valid title and body news was entered!!"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              }, 
+              child: const Text("Okay")
+            )
+          ],
+        )
+      );
+      return;  
+    }
+    widget.onAddNews(
+      News(
+        title: _titleController.text, 
+        body: _bodyController.text
+      )
+    );
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +87,7 @@ class _NewsFormState extends State<NewsForm>
               keyboardType: TextInputType.multiline,
               maxLines: null,
               expands: true,
+              textAlignVertical: TextAlignVertical.top,
             ),
           ),
           const SizedBox(height: 10),
@@ -59,7 +101,7 @@ class _NewsFormState extends State<NewsForm>
                 child: const Text("Cancel")
               ),
               ElevatedButton(
-                onPressed: () {}, 
+                onPressed: _submitForm, 
                 child: const Text("Save")
               )
             ],

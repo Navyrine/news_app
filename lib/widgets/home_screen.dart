@@ -33,8 +33,15 @@ class _HomeScreenState extends State<HomeScreen>
     showModalBottomSheet(
       isScrollControlled: true,
       context: context, 
-      builder: (ctx) => const NewsForm()
+      builder: (ctx) => NewsForm(onAddNews: _addNews)
     );
+  }
+
+  void _addNews(News news)
+  {
+    setState(() {
+      _registeredNews.add(news);
+    });
   }
 
   @override
