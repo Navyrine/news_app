@@ -14,6 +14,7 @@ class NewsItem extends StatelessWidget
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+      color: const Color.fromARGB(225, 252, 222, 112),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
         child: Column(
