@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _openFormNews() {
     showModalBottomSheet(
         isScrollControlled: true,
+        useSafeArea: true,
         context: context,
         builder: (ctx) => NewsForm(onAddNews: _addNews));
   }
